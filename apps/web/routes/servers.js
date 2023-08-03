@@ -67,6 +67,17 @@ serversRouter.delete('/:id', async (req, res) => {
   }
 });
 
+serversRouter.get('/group/:group_id', async (req, res) => {
+  try {
+    console.log('Get group servers');
+    const servers = await Server.find({groupId: req.params.group_id});
+    res.json(servers);
+  } catch (error) {
+    console.error(error);
+    res.json([]);
+  }
+})
+
 serversRouter.get('/:id/start', async (req, res) => {
   try {
     console.log('get start servers id ', req.params.id);
