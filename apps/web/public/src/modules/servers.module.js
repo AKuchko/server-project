@@ -35,7 +35,7 @@ export const serversModule = angular.module('servers',[])
                 })
             }
             
-    }]
+    }],
 }).component('serversView', {
     templateUrl: '/partials/servers/view',
     controller:[
@@ -60,6 +60,16 @@ export const serversModule = angular.module('servers',[])
                     })
                 }
             }
+            this.restart = function(){
+                if(confirm('Вы хотите перезапустить сервер?')){
+                    this.server.$restart(function(){
+                        NotificationService.showSuccess('Сервер перезапущен')
+                    })
+                }
+            }
+            // this.log = function() {
+            //   confirm('Confirm')
+            // }
     }]
 }).directive('serverUserActionTable', [
       '$compile', 'dataTableLanguage', function($compile, dataTableLanguage) {

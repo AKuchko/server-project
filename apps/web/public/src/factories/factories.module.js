@@ -12,7 +12,12 @@ export const factoriesModule = angular.module('factories', [])
           url: '/servers/:id/start',
           method:'get',
           isArray:false,
-        }
+        },
+        restart: {
+          url: '/servers/:id/restart',
+          method: 'get',
+          isArray: false,
+        },
       });
     }
   ])
