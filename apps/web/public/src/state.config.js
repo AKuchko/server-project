@@ -32,4 +32,24 @@ export default function stateConfig($stateProvider, $urlRouterProvider) {
         url: '/charts',
         component: 'chartsMain',
       })
-}
+      .state({
+        name: 'groups',
+        url: '/groups',
+        component: 'groupsList',
+      })
+      .state({
+        name: 'groups.create',
+        url: '/create',
+        component: 'groupsEdit'
+      })
+      .state({
+        name: 'groups.edit',
+        url: '/edit/:id',
+        component: 'groupsEdit'
+      })
+      .state({
+        name: 'groups.view',
+        url: '/view/:id',
+        component: 'groupsView',
+      })
+    }
