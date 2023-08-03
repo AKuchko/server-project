@@ -1,0 +1,20 @@
+.panel.panel-default
+    .panel-heading    
+        h3 Группа "{{ $ctrl.group.name }}"
+            a.btn.btn-primary.pull-right(
+                ui-sref="groups.edit({id:$ctrl.group._id})"
+                ui-sref-active="active"
+            ) Изменить
+.panel.panel-default
+    .panel-heading   
+        h4 Сервера группы
+    .panel-body
+        .list-group
+            a.list-group-item(
+                ng-repeat="server in $ctrl.servers"
+                ui-sref="servers.view({id:server._id})"
+                ui-sref-active="active",
+            ) {{ server.name }} 
+                span.pull-right host: ({{ server.host }})
+        p(ng-if="!$ctrl.servers.length") В этой группе нет сервров
+

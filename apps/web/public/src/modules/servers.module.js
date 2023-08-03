@@ -19,22 +19,31 @@ export const serversModule = angular.module('servers',[])
     templateUrl: '/partials/servers/edit',
     controller:[
         'Server',
+        'Group',
         '$stateParams',
         '$state',
         'NotificationService',
-        function(Server, $stateParams, $state, NotificationService){
+        function(Server, Group, $stateParams, $state, NotificationService){
             if($stateParams.id){
                 this.server = Server.get({id:$stateParams.id});
             }else{
                 this.server = new Server();
             }
+            this.groups = Group.query()
             this.save = function(){
                 this.server.$save(function(){
                     NotificationService.showSuccess('Сервер сохранен')
                     $state.go('servers',{},{reload: true});
                 })
             }
-            
+            this.delete = function() {
+              if (confirm('Вы точно хотите удалить сервер ?')) {
+                this.server.$delete(() => {
+                  NotificationService.showSuccess('Сервер удален')
+                  $state.go('servers',{},{reload: true});
+                })
+              }
+            }
     }],
 }).component('serversView', {
     templateUrl: '/partials/servers/view',
@@ -67,9 +76,6 @@ export const serversModule = angular.module('servers',[])
                     })
                 }
             }
-            // this.log = function() {
-            //   confirm('Confirm')
-            // }
     }]
 }).directive('serverUserActionTable', [
       '$compile', 'dataTableLanguage', function($compile, dataTableLanguage) {

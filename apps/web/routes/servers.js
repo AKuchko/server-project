@@ -1,7 +1,9 @@
 const express = require('express');
 const moment = require('moment');
+const mongoose = require('mongoose');
 
-const {Server, UserAction} = require('../../../models');
+
+const {Server, UserAction, Group} = require('../../../models');
 
 const serversRouter = express.Router();
 
@@ -16,18 +18,20 @@ serversRouter.get('/', async (req, res) => {
   }
 });
 
-
 serversRouter.get('/:id', async (req, res) => {
   try {
     console.log('get servers id ', req.params.id);
-    res.json(await Server.findOne({
-      _id: req.params.id,
-    }));
+    let server = await Server.findOne({ _id: req.params.id }).lean()
+    const group = await Group.findOne({_id: server.groupId});
+
+    server.groupName = group.name
+    res.json(server);
   } catch (err) {
     console.log(err);
     res.json({});
   }
 });
+
 serversRouter.post('/', async (req, res) => {
   try {
     console.log('post servers');
@@ -66,6 +70,17 @@ serversRouter.delete('/:id', async (req, res) => {
     res.status(500).send('');
   }
 });
+
+serversRouter.get('/group/:group_id', async (req, res) => {
+  try {
+    console.log('Get group servers');
+    const servers = await Server.find({groupId: req.params.group_id});
+    res.json(servers);
+  } catch (error) {
+    console.error(error);
+    res.json([]);
+  }
+})
 
 serversRouter.get('/:id/start', async (req, res) => {
   try {

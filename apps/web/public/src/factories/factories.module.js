@@ -18,6 +18,11 @@ export const factoriesModule = angular.module('factories', [])
           method: 'get',
           isArray: false,
         },
+        groupServers: {
+          url: '/servers/group/:group_id',
+          method: 'get',
+          isArray: true,
+        }
       });
     }
   ])
@@ -43,5 +48,11 @@ export const factoriesModule = angular.module('factories', [])
           isArray: false,
         }
       });
+    }
+  ])
+  .factory('Group', [
+    '$resource',
+    function($resource) {
+      return $resource('/groups/:id', {id: '@_id'}, {})
     }
   ])
