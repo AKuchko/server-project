@@ -1,5 +1,6 @@
 import stateConfig from './state.config';
 import {serversModule} from './modules/servers.module';
+import {groupsModule} from './modules/groups.module';
 import {NotificationService} from './modules/notification.service';
 import {factoriesModule} from './factories/factories.module';
 
@@ -8,6 +9,7 @@ angular.module('test_project',[
     'ui.bootstrap',
     'ui.router',
     serversModule.name,
+    groupsModule.name,
     factoriesModule.name,
 ])
     .config(stateConfig)
