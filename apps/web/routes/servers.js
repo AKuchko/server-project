@@ -119,20 +119,15 @@ serversRouter.get('/:id/restart', async (req, res) => {
 
     server.status = 'stoped';
     await server.save();
-    await UserAction.create({
-      serverId: req.params.id,
-      date: moment().format('YYYY-MM-DD HH:mm:ss'),
-      user: 'Тестовый пользователь',
-      action: 'Пользователь остановил сервер',
-    });
 
     server.status = 'started';
     await server.save();
+
     await UserAction.create({
       serverId: req.params.id,
       date: moment().format('YYYY-MM-DD HH:mm:ss'),
       user: 'Тестовый пользователь',
-      action: 'Пользователь запустил сервер',
+      action: 'Пользователь перезапустил сервер',
     });
 
     res.json(server);
