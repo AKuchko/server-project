@@ -19,13 +19,18 @@
             tr
                 td status
                 td {{$ctrl.server.status === 'started'?'Запущен':'Остановлен'}}
-                    a.btn.btn-default.pull-right(
+                    a.btn.btn-default.pull-right.btn-danger(
                         ng-if="$ctrl.server.status === 'started'"
                         ng-click='$ctrl.stop()'
                     ) Остановить
                     a.btn.btn-default.pull-right(
+                        ng-if="$ctrl.server.status === 'started'"
+                        ng-click='$ctrl.restart()'
+                    ) Перезапустить
+                    a.btn.btn-default.pull-right(
                         ng-if="$ctrl.server.status === 'stoped'"
                         ng-click='$ctrl.start()'
                     ) Запустить
+             
     .col-md-3
         a.btn.btn-default.pull-right(ui-sref="servers.edit({id:$ctrl.server._id})") Изменить
